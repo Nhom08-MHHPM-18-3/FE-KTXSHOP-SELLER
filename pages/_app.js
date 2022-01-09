@@ -1,31 +1,21 @@
 import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 import {
-  faAtom,
-  faCapsules,
-  faClock,
-  faComment,
-  faCommentDollar,
-  faCube,
   faCubes,
-  faFlag,
-  faHistory,
-  faIndustry,
-  faListAlt,
-  faMapMarked,
-  faMoneyCheckAlt,
-  faPodcast,
-  faRocket,
-  faSquareRootAlt,
-  faTag,
-  faTruck,
-  faVideo,
-  faVideoSlash
+  faPlusCircle,
+  faFileInvoiceDollar,
+  faShoppingBasket,
+  faShoppingCart,
+  faWarehouse,
+  faMoneyCheck,
+  faCog,
+  faShippingFast,
+  faBorderAll,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   Backdrop,
   CircularProgress,
   createMuiTheme,
-  ThemeProvider
+  ThemeProvider,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Layout from "../component/layout/layout";
@@ -33,6 +23,7 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import styles from "./global.css";
 import Loader, { setupLoading } from "../component/loader/loader";
+import Head from "next/head";
 
 const menu = [
   {
@@ -42,120 +33,84 @@ const menu = [
     subMenu: [
       {
         key: "PRODUCT",
-        name: "Sản phẩm",
+        name: "Danh sách sản phẩm",
         link: "/cms/product",
         icon: faCubes,
       },
       {
-        key: "CATEGORY",
-        name: "Danh mục",
-        link: "/cms/category",
-        icon: faCubes,
+        key: "CREATE_PRODUCT",
+        name: "Thêm sản phẩm",
+        link: "/cms/product/new",
+        icon: faPlusCircle,
       },
-      {
-        key: "PRODUCER",
-        name: "Nhà sản xuất",
-        link: "/cms/manufacturer",
-        icon: faIndustry,
-      },
-      {
-        key: "INGREDIENT",
-        name: "Hoạt chất",
-        link: "/cms/ingredient",
-        icon: faAtom,
-      }
-    ]
+    ],
   },
   {
-    key: "REGION",
-    name: "Khu vực",
-    link: "/cms/region",
-    icon: faMapMarked,
-  },
-  {
-    key: "FEE",
-    name: "Cài đặt phí",
-    required: "/cms/fee",
+    key: "REVENUE",
+    name: "Doanh thu",
+    required: "/cms/revenue",
     subMenu: [
       {
-        key: "FEE",
-        name: "Công thức phí",
-        link: "/cms/fee",
-        icon: faSquareRootAlt
+        key: "VIEW-REVENUE",
+        name: "Xem doanh thu",
+        link: "/cms/revenue",
+        icon: faFileInvoiceDollar,
       },
       {
-        key: "CONFIGPRICING",
-        name: "Hệ số phí",
-        link: "/cms/pricing",
-        icon: faCommentDollar
+        key: "PRODUCTS-UNPAID",
+        name: "Sản phẩm sẽ thanh toán",
+        link: "/cms/revenue/products-unpaid",
+        icon: faShoppingCart,
       },
       {
-        key: "DELIVERYFEE",
-        name: "Phí vận chuyển",
-        link: "/cms/delivery-fee",
-        icon: faTruck
+        key: "PRODUCTS-PAID",
+        name: "Sản phẩm đã thanh toán",
+        link: "/cms/revenue/products-paid",
+        icon: faShoppingBasket,
       },
       {
-        key: "PAYMENTFEE",
-        name: "Phí thanh toán",
-        link: "/cms/payment-fee",
-        icon: faMoneyCheckAlt
-      },
-      {
-        key: "FEE_HISTORY",
-        name: "Lịch sử cài đặt giá",
-        link: "/cms/fee/history",
-        icon: faHistory
+        key: "REVENUE-MANAGEMENT",
+        name: "Quản lý doanh thu",
+        link: "/cms/revenue/revenue-management",
+        icon: faMoneyCheck,
       },
     ],
   },
   {
     key: "DELIVERY",
     name: "Giao hàng",
-    required: "/cms/delivery/time",
+    required: "/cms/shipper",
     subMenu: [
       {
-        key: "DELIVERY",
-        name: "Thời gian giao hàng",
-        link: "/cms/delivery/time",
-        icon: faClock
+        key: "SHIPPING",
+        name: "Trạng thái giao hàng",
+        link: "/cms/shipper/shipping",
+        icon: faShippingFast,
+      },
+      {
+        key: "ORDER-STATUS",
+        name: "Trạng thái đơn hàng",
+        link: "/cms/shipper/order-status",
+        icon: faBorderAll,
       },
     ],
   },
   {
-    key: "SETTING",
-    name: "Hiển thị",
+    key: "FUNCTION-ORTHER",
+    name: "Chức năng khác",
     subMenu: [
       {
-        key: "CONFIG_TAB",
-        name: "Tab",
-        link: "/cms/tab",
-        icon: faListAlt
+        key: "PINCODE",
+        name: "Pin code",
+        link: "/cms/func-orther/pin-code",
+        icon: faCog,
       },
       {
-        key: "TAG",
-        name: "Tag",
-        link: "/cms/tag",
-        icon: faTag
+        key: "WAREHOUSE",
+        name: "Quản lý kho",
+        link: "/cms/func-orther/warehouse",
+        icon: faWarehouse,
       },
-      {
-        key: "MARKETING_POPUP",
-        name: "Popup",
-        link: "/cms/popup",
-        icon: faComment
-      },
-      {
-        key: "SETTING_BANNER",
-        name: "Banner",
-        link: "/cms/banner",
-        icon: faFlag
-      },
-      {
-        key: "POST_CONTENT",
-        name: "Bài đăng sản phẩm",
-        link: "/cms/post",
-        icon: faNewspaper
-      }
     ],
   },
 ];
@@ -172,32 +127,44 @@ export var theme = createMuiTheme({
 
 export default function App(props) {
   const router = useRouter();
-  const [showLoader, setShowLoader] = React.useState(true)
-  const [showLoaderText, setShowLoaderText] = React.useState(true)
+  const [showLoader, setShowLoader] = React.useState(true);
+  const [showLoaderText, setShowLoaderText] = React.useState(true);
 
   // do once
   useEffect(() => {
-
     // setup first loading
     setTimeout(() => {
-      setShowLoaderText(false)
-      setShowLoader(false)
-    }, 500)
+      setShowLoaderText(false);
+      setShowLoader(false);
+    }, 500);
 
     // setup loading when navigate
-    return setupLoading(router, setShowLoader)
-  }, [])
+    return setupLoading(router, setShowLoader);
+  }, []);
   const { Component, pageProps } = props;
 
   // if (pageProps.loggedIn) {
   return (
     <ThemeProvider theme={theme}>
+      <Head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"
+      ></script>
       <CssBaseline />
       <Layout
         className={styles.blank}
         loggedInUserInfo={pageProps.loggedInUserInfo}
         menu={menu}
-        title="CMS"
+        title="KTXSHOP"
       >
         <Component {...pageProps} />
       </Layout>
