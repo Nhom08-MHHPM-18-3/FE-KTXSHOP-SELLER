@@ -1,0 +1,85 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-color: #00b46e;
+    border-bottom: solid 1px #ccc;
+    z-index: 999;
+}
+
+.menuBtn {
+    display: block;
+    padding: 8px 24px;
+    color: #eee;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menuBtnIcon:hover {
+    cursor: pointer;
+    color: #fff;
+}
+
+.pageTitle {
+    height: 100%;
+    display: block;
+    float: left;
+}
+
+.title {
+    font-size: 20px;
+    color: white;
+    padding: 11px;
+    display: block;
+    font-family: Tahoma;
+}
+
+.menuItem {
+    display: inline-block;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.menuItemWrapper:hover .menuItem {
+    background: #00a46e;
+}
+
+.menuItemWrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.subMenu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    background: #00a46e;
+    white-space: nowrap;
+}
+
+.menuItemWrapper:hover .subMenu {
+    display: block;
+}
+
+.subMenuItem:hover {
+    background: #00945e;
+    color: white;
+}
+
+.subMenuItem {
+    cursor: pointer;
+    padding: 7px 10px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.menuIcon {
+    margin-right: 7px;
+    width: 16px !important;
+}

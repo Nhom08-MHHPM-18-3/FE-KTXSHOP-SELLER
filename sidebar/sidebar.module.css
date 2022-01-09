@@ -1,0 +1,78 @@
+.menuOverlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1101;
+    display: none;
+    transition: 0.3s;
+}
+
+.sideMenuActive .menuOverlay {
+    background: rgba(0, 0, 0, 0.3);
+    display: block;
+}
+
+.menuBody {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -260px;
+    z-index: 1102;
+    background: white;
+    width: 260px;
+    box-shadow: 0px 0 20px 0px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.sideMenuActive .menuBody {
+    left: 0;
+}
+
+.menuList {
+    padding: 0;
+}
+
+.menuItem, .menuItemActive {
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #888;
+    -moz-transition: color 0.2s ease-in;
+    /* WebKit */
+    -webkit-transition: color 0.2s ease-in;
+    /* Opera */
+    -o-transition: color 0.2s ease-in;
+    /* Standard */
+    transition: color 0.2s ease-in;
+}
+
+.menuItem a, .menuItemActive a {
+    text-decoration: none;
+    color: #555;
+    display: block;
+    padding: 16px;
+}
+
+.menuItemActive {
+    color: #000;
+    font-weight: bold;
+}
+
+.menuItem:hover, .menuItemActive:hover {
+    color: #000;
+    background-color: #eee;
+}
+
+.menuIcon {
+    width: 18px !important;
+    height: 18px;
+    margin-right: 16px;
+}
+
+.menuBody ul.main-menu li i {
+    width: 20px;
+    margin-left: 0;
+}
