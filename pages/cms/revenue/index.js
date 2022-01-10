@@ -4,31 +4,37 @@ import { doWithLoggedInUser, renderWithLoggedInUser } from "../../../lib/login";
 import Head from "next/head";
 import { MyCardHeader, MyCard } from "../../../component/my-card/my-card";
 import styles from "./revenue.module.scss";
+import { sellerApi } from "../../../services/sellerApi";
 
 export default function Revenue(props) {
   return renderWithLoggedInUser(props, render);
 }
 
-function render({ props }) {
+function render({
+  moneyPaid,
+  moneyUnpaid,
+  numberProductsPaid,
+  numberProductsUnpaid,
+}) {
   const listRevenueProductsPaid = [
     {
       title: "Tổng số tiền",
-      count: "710 đ",
+      count: `${moneyPaid}đ`,
     },
     {
       title: "Tổng số đơn hàng",
-      count: "710",
+      count: numberProductsPaid,
     },
   ];
 
   const listRevenueProductsUnpaid = [
     {
       title: "Tổng số tiền",
-      count: "710 đ",
+      count: `${moneyUnpaid}đ`,
     },
     {
       title: "Tổng số đơn hàng",
-      count: "710",
+      count: numberProductsUnpaid,
     },
   ];
 
@@ -103,3 +109,41 @@ function render({ props }) {
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const listOrders = await sellerApi.getOrders({});
+  const dataOrders = listOrders.data.data;
+  const listRevenue = await sellerApi.getRevenue({});
+  const dataRevenue = listRevenue.data.data;
+
+  let moneyPaid = 0;
+  let moneyUnpaid = 0;
+  let numberProductsPaid = 0;
+  let numberProductsUnpaid = 0;
+
+  dataRevenue.map((item) => {
+    if (item.attributes.AccountID === 1) {
+      moneyUnpaid = item.attributes.MoneyWillPay;
+      moneyPaid = item.attributes.MoneyPaid;
+    }
+  });
+
+  dataOrders.map((item) => {
+    if (item.attributes.Status === "Unpaid") {
+      numberProductsUnpaid++;
+    }
+
+    if (item.attributes.Status === "Paid") {
+      numberProductsPaid++;
+    }
+  });
+
+  return {
+    props: {
+      moneyPaid,
+      moneyUnpaid,
+      numberProductsPaid,
+      numberProductsUnpaid,
+    },
+  };
+};
