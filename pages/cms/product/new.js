@@ -5,6 +5,11 @@ import {
     Grid,
     Tab,
     Tabs,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Select,
+    Divider,
     TextField,
 } from "@material-ui/core";
 import Image from 'next/image'
@@ -46,19 +51,24 @@ function render(props) {
 
     const [price, setPrice] = useState();
     const [name, setName] = useState();
+    const [category, setCategory] = useState("Ăn uống");
+    const [description, setDescription] = useState();
     const [imgUrl, setImgUrl] = useState();
     const router = useRouter()
 
     async function createProduct() {
         var myHeaders = new Headers();
+        console.log(description, category)
         myHeaders.append("Content-Type", "application/json")
         await fetch(process.env.API_HOST + '/api/products', {
             method: 'POST',
             body: JSON.stringify({
                 data: {
                     name: name,
-                    price: price,
-                    imageUrl: imgUrl
+                    price: parseInt(price),
+                    imageUrl: imgUrl,
+                    category: category,
+                    description: description
                 }
             }),
             headers: myHeaders
@@ -103,7 +113,7 @@ function render(props) {
                     <MyCardContent>
 
                         <Grid container spacing={6}>
-                            <Grid item xs={12} sm={12} md={6}>
+                            <Grid item xs={12} sm={12} md={4}>
                                 <TextField
                                     id="name"
                                     name="name"
@@ -116,6 +126,21 @@ function render(props) {
                                     }}
                                     style={{ width: "100%" }}
                                     onChange={(e) => setName(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={6}>
+                                <TextField
+                                    id="description"
+                                    name="description"
+                                    variant="outlined"
+                                    size="small"
+                                    label="Mô tả sản phẩm"
+                                    placeholder="Sản phẩm này tốt"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    style={{ width: "100%" }}
+                                    onChange={(e) => setDescription(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12} md={3}>
@@ -133,6 +158,23 @@ function render(props) {
                                     onChange={(e) => setPrice(e.target.value)}
                                 />
                             </Grid>
+                            <Grid item xs={12} sm={12} md={3}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Loại</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={category}
+                                        label="Loại"
+                                        onChange={(e) => {
+                                            setCategory(e.target.value)
+                                        }}
+                                    >
+                                        <MenuItem value={"Ăn uống"}>Ăn uống</MenuItem>
+                                        <MenuItem value={"Đồ dùng"}>Đồ dùng</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
                             <Grid item xs={12} sm={12} md={12}>
                                 <input type="file" id="actual-btn" onChange={(e) => uploadImage(e.target.files[0])} hidden />
                                 <label style={{
@@ -141,7 +183,7 @@ function render(props) {
                                     padding: "0.5rem",
                                     borderRadius: "0.3rem",
                                     cursor: "pointer"
-                                }} for="actual-btn">Choose File</label>
+                                }} for="actual-btn">Chọn ảnh</label>
                             </Grid>
                             {imgUrl ? <Grid style={{ padding: "0", marginLeft: "25px" }} item xs={12} sm={12} md={12}>
                                 <Image src={imgUrl} height={100} width={100} />
