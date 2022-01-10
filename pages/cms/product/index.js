@@ -136,6 +136,8 @@ function render(props) {
                             <TableCell align="left">ID</TableCell>
                             <TableCell align="left">Hình ảnh</TableCell>
                             <TableCell align="left">Tên sản phẩm</TableCell>
+                            <TableCell align="left">Mô tả</TableCell>
+                            <TableCell align="left">Loại</TableCell>
                             <TableCell align="left">Giá</TableCell>
                             <TableCell align="center">Thao tác</TableCell>
                         </TableRow>
@@ -156,6 +158,8 @@ function render(props) {
                                             <Image src={row.imageUrl ? row.imageUrl : "/"} title="image" alt="image" width={60} height={60} />
                                         </TableCell>
                                         <TableCell align="left">{formatEllipsisText(row.name)}</TableCell>
+                                        <TableCell align="left">{row.description}</TableCell>
+                                        <TableCell align="left">{row.category}</TableCell>
                                         <TableCell align="left">{row.price} vnđ</TableCell>
                                         <TableCell align="center">
                                             <Link href={`/cms/product/edit?productId=${row.id}`}>
