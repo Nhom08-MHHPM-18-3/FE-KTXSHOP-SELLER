@@ -141,9 +141,13 @@ export default function App(props) {
     // setup loading when navigate
     return setupLoading(router, setShowLoader);
   }, []);
+
   const { Component, pageProps } = props;
 
-  // if (pageProps.loggedIn) {
+  useEffect(() => {
+    pageProps.loggedInUserInfo = localStorage.getItem("account");
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
@@ -171,11 +175,4 @@ export default function App(props) {
       <Loader show={showLoader} showText={showLoaderText}></Loader>
     </ThemeProvider>
   );
-  // } else {
-  //   return (
-  //     <ThemeProvider theme={theme}>
-  //       <Component {...pageProps} />
-  //     </ThemeProvider>
-  //   );
-  // }
 }

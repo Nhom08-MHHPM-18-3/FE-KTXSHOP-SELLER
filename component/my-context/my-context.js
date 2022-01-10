@@ -1,5 +1,5 @@
-import {createContext} from "react";
+import { createContext } from "react";
 
-const UserContext = createContext({loggedInUserInfo:null});
+const UserContext = createContext({ loggedInUserInfo: null });
 
-export default UserContext
+export default UserContext;

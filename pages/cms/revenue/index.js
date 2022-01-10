@@ -5,6 +5,8 @@ import Head from "next/head";
 import { MyCardHeader, MyCard } from "../../../component/my-card/my-card";
 import styles from "./revenue.module.scss";
 import { sellerApi } from "../../../services/sellerApi";
+import UserContext from "../../../component/my-context/my-context";
+import { useContext } from "react";
 
 export default function Revenue(props) {
   return renderWithLoggedInUser(props, render);
