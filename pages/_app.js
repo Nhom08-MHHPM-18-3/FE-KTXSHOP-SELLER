@@ -77,14 +77,14 @@ const menu = [
     ],
   },
   {
-    key: "DELIVERY",
-    name: "Giao hàng",
-    required: "/cms/shipper",
+    key: "ORDER",
+    name: "Đơn hàng",
+    required: "/cms/order",
     subMenu: [
       {
-        key: "SHIPPING",
-        name: "Trạng thái giao hàng",
-        link: "/cms/shipper/shipping",
+        key: "ORDER",
+        name: "Danh sách đơn hàng",
+        link: "/cms/order",
         icon: faShippingFast,
       },
       {

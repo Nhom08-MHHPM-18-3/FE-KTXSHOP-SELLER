@@ -123,8 +123,8 @@ function render(props) {
                 </Grid>
                 <Grid item xs={12} md={12} sm={12}>
                   <TextField
-                    id="name"
-                    name="name"
+                    id="ProductName"
+                    name="ProductName"
                     label="Tên sản phẩm"
                     placeholder=""
                     helperText={errors.name?.message}
@@ -156,8 +156,8 @@ function render(props) {
                 </Grid>
                 <Grid item xs={12} md={12} sm={6}>
                   <TextField
-                    id="price"
-                    name="price"
+                    id="Price"
+                    name="Price"
                     label="Giá"
                     placeholder=""
                     variant="outlined"

@@ -58,14 +58,13 @@ function render(props) {
 
     async function createProduct() {
         var myHeaders = new Headers();
-        console.log(description, category)
         myHeaders.append("Content-Type", "application/json")
         await fetch(process.env.API_HOST + '/api/products', {
             method: 'POST',
             body: JSON.stringify({
                 data: {
-                    name: name,
-                    price: parseInt(price),
+                    ProductName: name,
+                    Price: parseInt(price),
                     imageUrl: imgUrl,
                     category: category,
                     description: description

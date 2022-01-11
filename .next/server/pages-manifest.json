@@ -2,5 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/cms/revenue": "pages/cms/revenue.js"
+  "/cms/order/edit": "pages/cms/order/edit.js",
+  "/cms/order": "pages/cms/order.js"
 }

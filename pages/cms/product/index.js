@@ -157,10 +157,10 @@ function render(props) {
                                         <TableCell>
                                             <Image src={row.imageUrl ? row.imageUrl : "/"} title="image" alt="image" width={60} height={60} />
                                         </TableCell>
-                                        <TableCell align="left">{formatEllipsisText(row.name)}</TableCell>
+                                        <TableCell align="left">{formatEllipsisText(row.ProductName)}</TableCell>
                                         <TableCell align="left">{row.description}</TableCell>
                                         <TableCell align="left">{row.category}</TableCell>
-                                        <TableCell align="left">{row.price} vnđ</TableCell>
+                                        <TableCell align="left">{row.Price} vnđ</TableCell>
                                         <TableCell align="center">
                                             <Link href={`/cms/product/edit?productId=${row.id}`}>
                                                 <a>

@@ -29,7 +29,7 @@ export async function loadIngredientData(ctx) {
     await fetch(process.env.API_HOST + '/api/orders/' + id)
         .then(response => response.json())
         .then(res => {
-            data.props.data.push(res.data.attributes)
+            data.props.data.push({ ...res.data.attributes, id: id })
         });
     return data;
 }
@@ -128,7 +128,7 @@ function render(props) {
                 <title>Cập nhật hóa đơn</title>
             </Head>
             <MyCard>
-                <MyCardHeader title={"hóa đơn #" + data.code} />
+                <MyCardHeader title={"hóa đơn #" + data.id} />
                 <FormGroup>
                     <MyCardContent>
                         <form>
@@ -136,9 +136,9 @@ function render(props) {
                             <Grid container item xs={12} md={6} sm={12}>
                                 <Grid item xs={12} md={12} sm={12}>
                                     <TextField
-                                        id="name"
-                                        name="name"
-                                        label="Tên hóa đơn"
+                                        id="AccountID"
+                                        name="AccountID"
+                                        label="ID Khách hàng"
                                         placeholder=""
                                         helperText={errors.name?.message}
                                         margin="normal"
@@ -167,17 +167,101 @@ function render(props) {
                                         })}
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={12} sm={12}>
+                                <Grid item xs={12} md={6} sm={6}>
                                     <TextField
-                                        id="description"
-                                        name="description"
-                                        label="Mô tả"
+                                        id="ProductID"
+                                        name="ProductID"
+                                        label="ID Sản phẩm"
                                         placeholder=""
                                         variant="outlined"
                                         size="small"
                                         margin="normal"
                                         multiline
-                                        rows={7}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        style={{ margin: 12, width: "calc(100% - 24px)" }}
+                                        inputRef={register}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6} sm={6}>
+                                    <TextField
+                                        id="Quantity"
+                                        name="Quantity"
+                                        label="Số lượng"
+                                        placeholder=""
+                                        variant="outlined"
+                                        size="small"
+                                        margin="normal"
+                                        multiline
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        style={{ margin: 12, width: "calc(100% - 24px)" }}
+                                        inputRef={register}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6} sm={6}>
+                                    <TextField
+                                        id="UnitCost"
+                                        name="UnitCost"
+                                        label="Giá sản phẩm"
+                                        placeholder=""
+                                        variant="outlined"
+                                        size="small"
+                                        margin="normal"
+                                        multiline
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        style={{ margin: 12, width: "calc(100% - 24px)" }}
+                                        inputRef={register}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6} sm={6}>
+                                    <TextField
+                                        id="Subtotal"
+                                        name="Subtotal"
+                                        label="Tổng tiền"
+                                        placeholder=""
+                                        variant="outlined"
+                                        size="small"
+                                        margin="normal"
+                                        multiline
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        style={{ margin: 12, width: "calc(100% - 24px)" }}
+                                        inputRef={register}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6} sm={6}>
+                                    <TextField
+                                        id="PurchaseDate"
+                                        name="PurchaseDate"
+                                        label="Ngày tạo đơn"
+                                        placeholder=""
+                                        variant="outlined"
+                                        size="small"
+                                        margin="normal"
+                                        multiline
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        style={{ margin: 12, width: "calc(100% - 24px)" }}
+                                        inputRef={register}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6} sm={6}>
+                                    <TextField
+                                        id="Status"
+                                        name="Status"
+                                        label="Trạng thái"
+                                        placeholder=""
+                                        variant="outlined"
+                                        size="small"
+                                        margin="normal"
+                                        multiline
                                         InputLabelProps={{
                                             shrink: true,
                                         }}

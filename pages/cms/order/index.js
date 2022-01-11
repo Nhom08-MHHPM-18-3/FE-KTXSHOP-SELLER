@@ -123,17 +123,21 @@ function render(props) {
                     <Table size="small" aria-label="a dense table" style={{ tableLayout: 'fixed' }}>
                         <colgroup>
                             <col width="15%" />
-                            <col width="25%" />
-                            <col width="35%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
                             <col width="15%" />
                             <col width="10%" />
                         </colgroup>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Mã</TableCell>
-                                <TableCell align="left">Tên hóa đơn</TableCell>
-                                <TableCell align="left">Mô tả</TableCell>
+                                <TableCell align="left">ID</TableCell>
+                                <TableCell align="left">ProductID</TableCell>
+                                <TableCell align="left">Số lượng</TableCell>
                                 <TableCell align="left">Thời gian tạo</TableCell>
+                                <TableCell align="left"> Tổng tiền </TableCell>
+                                <TableCell align="left"> Trạng thái </TableCell>
                                 <TableCell align="center">Thao tác</TableCell>
                             </TableRow>
                         </TableHead>
@@ -141,17 +145,19 @@ function render(props) {
                             <>
                                 <TableBody>
                                     {data.data?.map((row) => (
-                                        <TableRow key={row.code}>
+                                        <TableRow key={row.id}>
                                             <TableCell align="left">
-                                                {row.code}
+                                                {row.id}
                                             </TableCell>
                                             <TableCell align="left" className={styles.overflowWrap}>
-                                                {row.name}
+                                                {row.ProductID}
                                             </TableCell>
                                             <TableCell align="left" className={styles.overflowWrap}>
-                                                {row.description}
+                                                {row.Quantity}
                                             </TableCell>
-                                            <TableCell align="left">{formatTime(row.createdTime)}</TableCell>
+                                            <TableCell align="left">{row.PurchaseDate}</TableCell>
+                                            <TableCell align="left">{row.Subtotal}vnđ</TableCell>
+                                            <TableCell align="left">{row.Status}</TableCell>
                                             <TableCell align="center">
                                                 <Link href={`/cms/order/edit?orderId=${row.id}`}>
                                                     <a>
